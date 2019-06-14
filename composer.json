@@ -1,0 +1,22 @@
+{  
+    "name":"techsemicolon/laravel-app-key-rotation",
+    "license":"MIT",
+    "authors":[  
+       {  
+          "name":"MihirBhende",
+          "email":"mihirbhende1201@gmail.com"
+       }
+    ],
+    "description":"A helper library to re-encrypt the existing encrypted data when you rotate your Laravel APP_KEY",
+    "minimum-stability":"dev",
+    "require":{  
+       "php":">=5.4.0",
+       "illuminate/support": "5.2.x|5.3.x|5.4.x|5.5.x|5.6.x|5.7.x|5.8.x"
+ 
+    },
+    "autoload":{  
+       "psr-4":{  
+          "Techsemicolon\\KeyRotation\\":"src/"
+       }
+    }
+}
