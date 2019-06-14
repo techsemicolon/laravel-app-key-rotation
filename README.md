@@ -3,8 +3,7 @@
 A helper library to re-encrypt the existing encrypted data when you rotate your Laravel APP_KEY
 
 <p align="center">
-    <img alt="Laravel" src="laravel-logo.png" width="250">
-    <img alt="LaTex" src="latex-logo.svg" width="250">
+    <img alt="Laravel" src="laravel-logo.png" width="500">
 </p>
 
 The APP_KEY is used to keep your user sessions and other encrypted data secure! If the application key is not set, your user sessions and other encrypted data will not be secure. Believe it or not it is a big security risk.
