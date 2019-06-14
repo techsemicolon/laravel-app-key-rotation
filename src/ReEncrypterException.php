@@ -2,7 +2,7 @@
 
 namespace Techsemicolon\KeyRotation;
 
-class ReEncryptorException extends \Exception
+class ReEncrypterException extends \Exception
 {
 
 }

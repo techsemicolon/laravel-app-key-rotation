@@ -13,14 +13,14 @@ class ReEncrypter
      * 
      * @var Encrypter
      */
-    private $oldEncryptor;
+    private $oldEncrypter;
 
     /**
      * Encrypter instance with new APP_KEY
      * 
      * @var Encrypter
      */
-    private $newEncryptor;
+    private $newEncrypter;
 
     /**
      * Initializing the ReEncrypter instance
@@ -50,9 +50,9 @@ class ReEncrypter
         $oldAppKey = (string)$this->verifyAppKey($oldAppKey);
         $newAppKey = (string)$this->verifyAppKey($newAppKey);
         
-        // Initialize encryptor instance for old app key
-        $this->oldEncryptor = $this->getEncryptorInstance($oldAppKey, $cipher);
-        $this->newEncryptor = $this->getEncryptorInstance($newAppKey, $cipher);
+        // Initialize encrypter instance for old app key
+        $this->oldEncrypter = $this->getEncrypterInstance($oldAppKey, $cipher);
+        $this->newEncrypter = $this->getEncrypterInstance($newAppKey, $cipher);
 
         return $this;
     }
@@ -82,7 +82,7 @@ class ReEncrypter
      * 
      * @return Encrypter
      */
-    private function getEncryptorInstance($key, $cipher)
+    private function getEncrypterInstance($key, $cipher)
     {
         return new Encrypter($key, $cipher);   
     }
@@ -93,17 +93,17 @@ class ReEncrypter
      * @param string $payloadValue
      * @param bool $serialized
      * 
-     * @throws ReEncryptorException
+     * @throws ReEncrypterException
      * @return string
      */
     public function encrypt($payloadValue, $serialized = false)
     {
         try{
 
-            return $this->newEncryptor->encrypt($this->oldEncryptor->decrypt($payloadValue, $serialized), $serialized);
+            return $this->newEncrypter->encrypt($this->oldEncrypter->decrypt($payloadValue, $serialized), $serialized);
         }
         catch(DecryptException $e){
-            throw new ReEncryptorException('Either the passed old APP_KEY is incorrect or payload value is invalid!');
+            throw new ReEncrypterException('Either the passed old APP_KEY is incorrect or payload value is invalid!');
         }
     }
 }

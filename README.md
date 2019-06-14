@@ -30,17 +30,17 @@ composer require techsemicolon/laravel-app-key-rotation
 
 ## Usage : 
 
-You can instantiate the `ReEncryptor` class by passing old APP_KEY. For that it is important for you to keep your old APP_KEY safe for reference before you rotate APP_KEY to a new one.
+You can instantiate the `ReEncrypter` class by passing old APP_KEY. For that it is important for you to keep your old APP_KEY safe for reference before you rotate APP_KEY to a new one.
 
 ~~~php
 // This is your old APP_KEY
 $oldAppKey = "your_old_app_key";
 
-// Instantiate ReEncryptor
-$reEncryptor = new ReEncryptor($oldAppKey);
+// Instantiate ReEncrypter
+$eeEncrypter = new ReEncrypter($oldAppKey);
 
 // Re-cncrypt the oldEncryptedPayload value
-$newEncryptedPayload = $reEncryptor->encrypt($oldEncryptedPayload);
+$newEncryptedPayload = $eeEncrypter->encrypt($oldEncryptedPayload);
 ~~~
 
 ##Suggestion : 
@@ -59,8 +59,7 @@ We can create a command `php artisan encryption:rotate` :
 namespace App\Console\Commands;
 
 use App\User;
-use Illuminate\Console\Command;
-use Illuminate\Encryption\Encrypter;
+use Techsemicolon\KeyRotation\ReEncrypter;
 
 class EncryptionRotateCommand extends Command
 {
@@ -98,17 +97,17 @@ class EncryptionRotateCommand extends Command
         // This is your old APP_KEY
         $oldAppKey = $this->option('oldappkey');
 
-        // Instantiate ReEncryptor
-        $reEncryptor = new ReEncryptor($oldAppKey);
+        // Instantiate ReEncrypter
+        $eeEncrypter = new ReEncrypter($oldAppKey);
 
 
-        User::all()->each(function($user) use($reEncryptor){
+        User::all()->each(function($user) use($eeEncrypter){
 
             // Stored value in a backup column
             $user->old_bank_account_number  = $user->bank_account_number;
 
             // Re-cncrypt the old encrypted payload value
-            $user->bank_account_number  = $reEncryptor->encrypt($user->bank_account_number);
+            $user->bank_account_number  = $eeEncrypter->encrypt($user->bank_account_number);
             $user->save();
 
         });
